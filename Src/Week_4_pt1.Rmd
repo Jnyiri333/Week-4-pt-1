@@ -7,5 +7,17 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+```
+
+## Confidence interval practice
+```{r}
+otter_length<-c(38,41,50,27,32,41,48,60,43)
+
+t.test(otter_length)
+
+
+
 ```
 
