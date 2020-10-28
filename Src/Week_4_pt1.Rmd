@@ -1,0 +1,11 @@
+---
+title: "Lab_4_Pt1_Nyiri"
+author: "Jake Nyiri"
+date: "10/28/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
