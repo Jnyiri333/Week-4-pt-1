@@ -33,9 +33,77 @@ sample_2_hornlength<-c(28,31,40,42,26,29,31)
 
 sample_test_results <- t.test(x=sample_1_hornlength, y= sample_2_hornlength)
 #p value here means 88% chance that pops have same actual mean
-#meaning the samples were drawn from popl'n
+#meaning the samples were not drawn from popl'ns where its at least as likely they were drawm this difference apart
 sample_test_results
 
 
 ```
+###END PART 1
+LAB 4 PART 2
+
+```{r}
+#create subset on inhouse mpg data for two classes of cars
+# pulling out SUVs and compact
+
+compact_SUV<-mpg %>% 
+  filter(class %in% c("suv", "compact"))
+
+#Exploratory data viz, by city mpg, along bottom, count is done automatically
+#use facet_wrap to give it groups to graph separately, and bins
+#to change default bins of 30
+ggplot(data = compact_SUV, aes(x=cty))+
+  geom_histogram(bins = 15)+
+  facet_wrap(~class) #separate graphs by class variable
+
+
+```
+```{r}
+#use quantile-quantile plot to see if these are close to 
+#a normal distibrution. The closer your sample is to normal dist, the more linear this plot is
+#also initally groups them all together until facet_wrap
+
+ggplot(data=compact_SUV, aes(sample = cty))+
+  geom_qq()+
+  facet_wrap(~class)
+
+```
+```{r}
+#summary stats cuz we love those
+car_stats <- compact_SUV %>% 
+  group_by(class) %>% 
+  summarize(mean_cty=mean(cty),
+            sd_city = sd(cty),
+            n=n())
+car_stats
+```
+
+
+```{r}
+#Now do 2-sample t test on this car shit
+#create vectors with observations for each smaple
+#cty mpg for SUV and compacts
+#use pull to only get one column and extract as a vector
+
+compact_sample <- compact_SUV %>% 
+  filter(class == "compact") %>% 
+  pull(cty) #use select to but stores it as dataframe with single column
+#t test wants a vector, not dataframe!
+
+suv_sample <- compact_SUV %>% 
+  filter(class == "suv") %>% 
+  pull(cty)
+
+compact_sample
+suv_sample
+
+```
+```{r}
+#actual t-test on this shit
+t.test(x=compact_sample, y= suv_sample)
+#pvalue of 2.2e-16 is smallest it will report
+#close to 0 probability that these samples could have been
+#drawn from same popl'n but gotten this different of means thru random chance
+
+```
+
 
