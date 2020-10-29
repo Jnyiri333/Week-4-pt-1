@@ -17,6 +17,24 @@ otter_length<-c(38,41,50,27,32,41,48,60,43)
 
 t.test(otter_length)
 
+#See a claim that mean otter length is 50 inches
+#Want to test that using my samples, don't think real mean is 50 in.
+#mu is the null hypothesis, so this is asking if null hypothesis
+#'mean is 50' is true
+otter_test<-t.test(x = otter_length, mu=50)
+```
+
+```{r}
+#two sample t-test
+sample_1_hornlength<-c(32,44,18,26,50,33,42,20)
+sample_2_hornlength<-c(28,31,40,42,26,29,31)
+#enter two separate samples to t.test to compare two samples
+#for two-sample t-test
+
+sample_test_results <- t.test(x=sample_1_hornlength, y= sample_2_hornlength)
+#p value here means 88% chance that pops have same actual mean
+#meaning the samples were drawn from popl'n
+sample_test_results
 
 
 ```
